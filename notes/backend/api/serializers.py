@@ -6,12 +6,12 @@ class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = ["id", "username", "password"]
-    extra_kwargs = {"password": {"write_only": True}}
+    extra_kwargs = {"password": {"write_only": True}} # The extra_kwargs attribute is used to set additional options for the fields, in this case, making the password field write-only. This ensures that the password is not included in the serialized output when retrieving user data, enhancing security
 
-  def create(self, validated_data):
-    user = User.objects.create_user(**validated_data)
+  def create(self, validated_data): # The create_user method is a helper function that creates a new user with the specified username and password.
+    user = User.objects.create_user(**validated_data) # It automatically hashes the password for security.
     return user
-  
+    
 class NoteSerializer(serializers.ModelSerializer):
   class Meta:
     model = Note

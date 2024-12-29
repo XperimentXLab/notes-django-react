@@ -22,8 +22,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/register/', CreateUserView.as_view(), name="register"), #register user
-    path('api/token/', TokenObtainPairView.as_view(), name='get_token'), #access token
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh'), #refresh token
-    path('api/auth/', include('rest_framework.urls')), #link prebuilt auth in django
+    path('api/token/', TokenObtainPairView.as_view(), name='get_token'), #handles obtaining access tokens.
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh'), #handles refreshing access tokens
+    path('api/auth/', include('rest_framework.urls')), #prebuilt authentication URLs provided by Django REST framework
     path('api/', include("api.urls")),
 ]
+
+# The as_view function is a method typically used in class-based views to convert a class into a view function that can be used in URL routing. 
+# It stores the original class on the view function, allowing for reverse URL lookups and breadcrumb generation. 
+# If the class has a queryset attribute that is a Django QuerySet, it raises a RuntimeError if the queryset is evaluated directly, to prevent caching and reuse between requests. 
+# The function then calls the superclass's as_view method, attaches the class and initialization arguments to the view, and returns the view with CSRF exemption for non-session-based authentication.
