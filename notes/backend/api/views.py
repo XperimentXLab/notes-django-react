@@ -30,7 +30,7 @@ class NoteDelete(generics.DestroyAPIView):
 
 
 class CreateUserView(generics.CreateAPIView):
-  queryset = User.objects.all() #list of object to be looking in
-  serializer_class = UserSerializer #data of user
+  queryset = User.objects.all() #list of all users
+  serializer_class = UserSerializer #data to be serialized when creating a new user
   permission_classes = [AllowAny] #AllowAny = allow anyone to create new user
 
